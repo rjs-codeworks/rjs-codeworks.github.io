@@ -5,6 +5,16 @@
     <title></title>
   </head>
   <body>
-    More info soon - to be done.
+    More info soon - to be done.<br><br>
+    The "syntax" for IPCs is described in <a href="https://raw.githubusercontent.com/rjs-codeworks/Modular-IPC/master/IPC%20Standard.txt">IPC Standard</a><br>
+    You may have noticed that it is fairly unusable because of the extermly large object for sending a single objects/string/... of data.<br>
+    This is a way to get around this problem:<br><br>
+    1. Define a general use object like this:
+    var obj = {header : {name : [name of the target process], channel : [the target channel]},data : {type : [message type], target : [mostly commonly ignored, only used for filtering. Set to "main" as default.], data : [leave empty], author : {name : [name of the sending process], channel : [channel of the sending process]}}}; <br>
+    (The "[]" brackets do not represent arrays...)<br>
+    2. When you want to send an ipc now, you can just use the predefined object like this:<br>
+    let ipc = obj;                          //copies the object<br>
+    ipc.data.data = [data to send]          //changes data of copied object<br>
+    process.send(ipc);<br>
   </body>
 </html>
